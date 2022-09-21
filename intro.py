@@ -1,4 +1,3 @@
-
 # Importar e inicializar Pygame.
 import pygame
 pygame.init()
