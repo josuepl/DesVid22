@@ -42,7 +42,7 @@ fondo = pygame.image.load("fondo.png").convert()
 objList = pygame.sprite.Group()
 allSpriteList = pygame.sprite.Group()
 
-for i in range(50):
+for i in range(60):
     color = (random.randrange(0,255,1),random.randrange(0,255,1),random.randrange(0,255,1))
     tam =[20,20]
     obj = Objeto(color,tam)
@@ -54,6 +54,7 @@ for i in range(50):
 #Jugador
 player = Player(WHITE,[30,30])
 allSpriteList.add(player)
+colision = 0
 while not fin:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -62,10 +63,17 @@ while not fin:
 
     
     #Colisiones
-    hitObjList = pygame.sprite.spritecollide(player, objList,True)
+    hitObjList = pygame.sprite.spritecollide(player, objList,False)
     mousePos = pygame.mouse.get_pos()
     player.mov()
     tamP = 30
+    for objTemo in hitObjList:
+        objTemo.rect.x = 10
+        objTemo.rect.y = 10
+        colision+=1
+        print("Se ha detectado una colision -> Col:",colision)
+        pass
+    #Dibujar en pantalla
     pantalla.blit(fondo,[0,0])
     allSpriteList.draw(pantalla)
     posCircle = (mousePos[0]+tamP/2, mousePos[1] + tamP/2)
